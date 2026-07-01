@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Hello World with MapLibreGl</title>
+        <title>Lab 1 Assignment</title>
         <!-- hint: remember to change your page title! -->
         <meta charset="utf-8" />
         <link rel="shortcut icon" href="#">
@@ -12,15 +12,42 @@
 
     <body>
         <header>
-            Hello World
-            <!-- hint: you can make a menu with other links here if you'd like -->
+            <p>Lab 1</p>
+            <h1>About Me!</h1>
         </header>
         <main>
             <div class="portfolio">
-                <!-- Portfolio content goes here -->
-                <!-- <img src="cute_bunny.jpg"> -->
+                <p>
+                    My name is Evan, and I'm a fourth-year from UCLA with a Statistics and Data Science major 
+                    and a Digital Humanities minor. I love the practice of narrative building through data visualization
+                    and map-making as a counter-practice to the way we see data used in service of empire. 
+                </p><br>
+                <p>Here's a photo of me (totally)</p>
+                <img src="cute_bunny.jpg" alt="a cute bunny">
+                <p>
+                    I believe that data doesn't only have to be used as a tool for colonialism. My hope is to use 
+                    critical cartography and data visualization within community organizing to better propogate 
+                    organizational vision, strategy, and campaigns. 
+                </p><br>
+                <p>Here are some of my favorite maps: </p><br>
+                <ul>
+                    <li><a href="https://www.palquest.org/en/places">Interactive Encyclopedia of the Palestinian Question--Places</a></li>
+                    <li><a href="https://cops-off-campus-ucla.github.io/"">UCLA Cops off Campus Abolition Map</a></li>
+                </ul><br>
+                <p>
+                    Besides being a nerd, I also love to eat out! Here's a list of my favorite
+                    places to eat in Westwood (also listed on the map):
+                </p><br>
+                <ol>
+                    <li>House of Mandi</li>
+                    <li>XiBei Eatery</li>
+                    <li>The Spot Street Pupusas</li>
+                </ol>
             </div>
-            <div id="map"></div>
+            <div id="mapouter">
+                <h3>Best Food Spots in Westwood</h3>
+                <div id = "map"></div>
+            </div>
         </main>
         <div id="footer">
             Copyright(2026)

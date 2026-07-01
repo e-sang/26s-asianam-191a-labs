@@ -1,12 +1,12 @@
 * {
-    font-family: Arial, sans-serif;
+    font-family: Helvetica, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 html {
-    background-color: aqua;
+    background-color: goldenrod;
 }
 
 html, body {
@@ -27,7 +27,7 @@ body {
 main {
     display: grid;
     grid-template-areas:
-        "portfolio map";
+        "portfolio mapouter";
     grid-template-columns: 1fr 1fr;
 }
 
@@ -45,7 +45,7 @@ main {
 
 #map {
     grid-area: map;
-    height: 80vh;
+    height: 60vh;
 }
 
 footer {
