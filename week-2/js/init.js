@@ -37,6 +37,7 @@ function createButtons(lat,lng,title){
     newButton.addEventListener('click', function(){
         map.flyTo({
             center: [lng,lat],
+            zoom: 16
         })
         if (fun) {
             const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
