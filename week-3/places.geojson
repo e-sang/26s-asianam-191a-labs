@@ -1,0 +1,50 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "place": "House of Mandi",
+                "message": "House of Mandi', '1083 Gayley Ave, Los Angeles, CA 90024 <br>  Would highly recommend the lamb mandi, mushakal forn vegetables, and cheese sambusas.",
+                "color": "blue"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -118.4486,
+                    34.0606
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "place": "XiBei Eatery",
+                "message": "XiBei Eatery', '10965 Weyburn Ave, Los Angeles, CA 90024 <br>  Chinese restaurant with authentic Chinese food. Recommend the noodle soups both for value and flavor!",
+                "color": "red"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -118.4476,
+                    34.0626
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "place": "The Spot Street Pupusas",
+                "message": "911 Broxton Ave, Los Angeles, CA 90024 <br>  Get everything.. tried the bean and cheese / spinach and cheese so far and they were all great",
+                "color": "purple"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -118.4473,
+                    34.0638
+                ]
+            }
+        }
+    ]
+}
