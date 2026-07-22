@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Lab 4 Assignment</title>
+        <!-- hint: remember to change your page title! -->
+        <meta charset="utf-8" />
+        <link rel="shortcut icon" href="#">
+        <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" />
+        <!-- <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+        <script type="module">
+            import * as maplibregl from 'https://unpkg.com/maplibre-gl@^6.0.0/dist/maplibre-gl.mjs';
+        </script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    </head>
+
+    <body>
+        <header>
+            <p>Lab 4  <button>Enable fun mode</button></p>
+            <h1>About Me!</h1>
+        </header>
+        <main>
+            <div class="portfolio">
+                <p>
+                    My name is Evan, and I'm a fourth-year from UCLA with a Statistics and Data Science major 
+                    and a Digital Humanities minor. I love the practice of narrative building through data visualization
+                    and map-making as a counter-practice to the way we see data used in service of empire. 
+                </p><br>
+                <p>Here's a photo of me (totally)</p>
+                <img src="cute_bunny.jpg" alt="a cute bunny">
+                <p>
+                    I believe that data doesn't only have to be used as a tool for colonialism. My hope is to use 
+                    critical cartography and data visualization within community organizing to better propogate 
+                    organizational vision, strategy, and campaigns. 
+                </p><br>
+                <p>Here are some of my favorite maps: </p><br>
+                <ul>
+                    <li><a href="https://www.palquest.org/en/places">Interactive Encyclopedia of the Palestinian Question--Places</a></li>
+                    <li><a href="https://cops-off-campus-ucla.github.io/">UCLA Cops off Campus Abolition Map</a></li>
+                </ul><br>
+                <p>
+                    Besides being a nerd, I also love to eat out! Here's a list of my favorite
+                    places to eat in Westwood (also listed on the map):
+                </p><br>
+                <div id="contents"></div>
+            </div>
+            <div id="mapouter">
+                <h3>Best Food Spots in Westwood</h3>
+                <div id = "map"></div>
+            </div>
+        </main>
+        <div id="footer">
+            Copyright(2026)
+        </div>
+    </body>
+    <!-- <script src="js/init.js"></script> -->
+    <script type="module">
+        import * as maplibregl from 'https://unpkg.com/maplibre-gl@^6.0.0/dist/maplibre-gl.mjs';
+
+        let mapOptions = {'centerLngLat': [-118.4430,34.0691],'startingZoomLevel':13}
+
+        const map = new maplibregl.Map({
+            container: 'map',
+            style: 'https://api.maptiler.com/maps/streets-v2-light/style.json?key=wsyYBQjqRwKnNsZrtci1',
+            center: mapOptions.centerLngLat,
+            zoom: mapOptions.startingZoomLevel
+        });
+
+        function random(number) {
+        return Math.floor(Math.random() * (number + 1));
+        }
+
+        const btn = document.querySelector("button");
+        let fun = false;
+
+        btn.addEventListener("click", () => {
+            fun = true;
+        });
+
+        function addMarker(feature){/*,col){*/
+            let col = "red";
+            let popup_message = `<h2>${feature['name']}</h2> <p>${feature['address']} <br> Not Vegetarian Friendly. <br> Best Dishes: ${feature['fav']}</p>`;
+            if (feature['Vegetarian'] == "Yes") {
+                col = "green";
+                popup_message = `<h2>${feature['name']}</h2> <p>${feature['address']} <br> Vegetarian Friendly! <br> Best Dishes: ${feature['fav']}</p>`;
+            } 
+            new maplibregl.Marker({color: col})
+                .setLngLat([feature['lng'], feature['lat']])
+                .setPopup(new maplibregl.Popup()
+                    .setHTML(popup_message))
+                .addTo(map)
+            createButtons(feature['lat'],feature['lng'],feature['name']);
+            return popup_message;
+        }
+
+        function createButtons(lat,lng,title){
+            const newButton = document.createElement("button");
+            newButton.id = "button"+title;
+            newButton.innerHTML = title;
+            newButton.setAttribute("lat",lat);
+            newButton.setAttribute("lng",lng);
+            newButton.addEventListener('click', function(){
+                map.flyTo({
+                    center: [lng,lat],
+                    zoom: 16
+                })
+                if (fun) {
+                    const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+                    document.body.style.backgroundColor = rndCol;
+                }
+            })
+            document.getElementById("contents").appendChild(newButton);
+        }
+
+        function processData(data) {
+            console.log(data);
+            data.forEach(feature => {
+                /*let coordinates = feature.geometry.coordinates;*/
+                let longitude = feature['lng'];
+                let latitude = feature['lat'];
+                let title = feature['name'];
+                let message = feature['address'];
+                /*let color = feature.properties.color;*/
+                addMarker(feature);/*,color);*/
+            })
+        }
+
+        const dataUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSW5R1J6LXtPgbwbiHmf6eOBzVGM1mfEu9xITAIEuHSH3wXrHHoDLZM9cxxLz4x9zOWBx7m_QeeLjnD/pub?output=csv"
+
+        map.on('load', function() {
+            // Use PapaParse to fetch and parse the CSV data from a Google Forms spreadsheet URL
+            Papa.parse(dataUrl, {
+                download: true, // Tells PapaParse to fetch the CSV data from the URL
+                header: true, // Assumes the first row of your CSV are column headers
+                complete: results =>{
+                    processData(results.data) // Call processData with the fetched data
+                }
+            });
+        });
+    </script>
+</html>
